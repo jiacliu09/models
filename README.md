@@ -1,4 +1,3 @@
-# can this change be saved?
 # TensorFlow Models
 
 This repository contains a number of different models implemented in [TensorFlow](https://www.tensorflow.org):
