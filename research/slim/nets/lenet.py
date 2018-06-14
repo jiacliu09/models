@@ -79,19 +79,6 @@ def lenet(images, num_classes=10, is_training=False,
   return logits, end_points
 lenet.default_image_size = 28
 
-def regul(end_points, rho):
-  regul_term=tf.zeros()
-  last_val=None
-  layer_names =['fc', 'conv']
-
-  for name, value in end_points.items():
-    if (last_val != None) and (any(layer in name for layer in layer_names)):
-      regul_term=tf.add(reg_term, tf.reduce_sum(last_val));
-    last_val = value
-
-  reg_term= tf.scalar_mul(rho, reg_term)
-
-  return regul_term
 
 
 def lenet_arg_scope(weight_decay=0.0):

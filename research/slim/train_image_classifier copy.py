@@ -219,28 +219,6 @@ tf.app.flags.DEFINE_boolean(
 
 FLAGS = tf.app.flags.FLAGS
 
-def regul(end_points, rho):
-  '''
-  By JC Liu, Ian Yen
-  regularization term to sparse parameters
-
-  Args:
-    end_points: dictionary output from nets for all the layers
-    rho: constant hyperparameter to be tuned
-  '''
-  regul_term=tf.zeros()
-  last_val=None
-  layer_names =['fc', 'conv']
-
-  for name, value in end_points.items():
-    if (last_val != None) and (any(layer in name for layer in layer_names)):
-      regul_term=tf.add(reg_term, tf.reduce_sum(last_val));
-    last_val = value
-
-  reg_term= tf.scalar_mul(rho, reg_term)
-
-  return regul_term
-
 
 def _configure_learning_rate(num_samples_per_epoch, global_step):
   """Configures the learning rate.
@@ -475,7 +453,6 @@ def main(_):
       """Allows data parallelism by creating multiple clones of network_fn."""
       images, labels = batch_queue.dequeue()
       logits, end_points = network_fn(images)
-      regul=
 
       #############################
       # Specify the loss function #
